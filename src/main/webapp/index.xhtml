@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:body>
+
+        <ui:composition template="./templates/templateBienvenida.xhtml">
+
+            <ui:define name="top">
+                Administrar Ciudadanos
+            </ui:define>
+
+            <ui:define name="content">
+                <f:view>
+                    <h:form>
+                        <ul>
+                            <li>
+                                <h:commandLink value="Ciudadanos" action="ciudadano/CiudadanoLista" />
+                            </li>
+                            <li>
+                                <h:commandLink value="Direcciones" action="direccion/DireccionLista" />
+                            </li>
+                            <li>
+                                <h:commandLink value="Emails" action="email/EmailLista" />
+                            </li>
+                            <li>
+                                <h:commandLink value="Teléfonos" action="telefono/TelefonoLista" />
+                            </li>
+                        </ul>
+                    </h:form>
+                </f:view>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

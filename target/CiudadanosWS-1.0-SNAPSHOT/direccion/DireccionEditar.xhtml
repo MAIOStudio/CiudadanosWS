@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../templates/templateDireccion.xhtml">
+
+            <ui:define name="top">
+                Editar Dirección
+            </ui:define>
+
+            <ui:define name="content">
+                <f:view>
+
+
+                    <h:form>
+                        <h1><h:outputText value="Modificar Datos"/></h1>
+                        <h:panelGrid columns="2">
+                            <h:outputLabel value="Calle:" for="calle" />
+                            <h:inputText id="calle" value="#{DireccionBean.direccion.calle}" title="Calle" />
+                            <h:outputLabel value="Numero:" for="numero" />
+                            <h:inputText id="numero" value="#{DireccionBean.direccion.numero}" title="Numero" />
+                            <h:outputLabel value="Sector:" for="sector" />
+                            <h:inputText id="sector" value="#{DireccionBean.direccion.sector}" title="Sector" />
+                            <h:outputLabel value="Ciudad:" for="ciudad" />
+                            <h:inputText id="ciudad" value="#{DireccionBean.direccion.ciudad}" title="Ciudad" />
+                            <h:outputLabel value="Tipo:" for="tipo" />
+                            <h:inputText id="tipo" value="#{DireccionBean.direccion.tipo}" title="Tipo" required="true" requiredMessage="The Tipo field is required."/>
+                            <h:outputLabel value="Ciudadano:" for="ciudadano" />
+                            <h:selectOneMenu id="ciudadano" value="#{DireccionBean.direccion.ciudadano}" title="Ciudadano" required="true" requiredMessage="The Ciudadano field is required.">
+                                <!-- TODO: update below reference to list of available items-->
+                                <f:selectItems value="#{CiudadanoBean.ciudadanos}"/>
+                            </h:selectOneMenu>
+                        </h:panelGrid>
+                        <h1/><br/>
+                        <h:commandLink value="Guardar" action="#{DireccionBean.editarDireccion}" />
+                        <br />
+                        <h:link outcome="DireccionLista" value="Lista" />
+                        <br/>
+                        <h:link outcome="/index" value="Inicio"/>
+                    </h:form>
+                </f:view>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

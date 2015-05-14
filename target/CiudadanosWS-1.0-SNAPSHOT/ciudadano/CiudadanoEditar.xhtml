@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../templates/templateCiudadano.xhtml">
+
+            <ui:define name="top">
+                Editar Ciudadano
+            </ui:define>
+
+            <ui:define name="content">
+                <f:view>
+
+
+                    <h:form>
+                        <h1><h:outputText value="Modificar Datos"/></h1>
+                        <h:panelGrid columns="2">
+                            <h:outputLabel value="Nombre:" for="nombre" />
+                            <h:inputText id="nombre" value="#{CiudadanoBean.ciudadano.nombre}" title="Nombre" required="true" requiredMessage="The Nombre field is required."/>
+                            <h:outputLabel value="Apellido:" for="apellido" />
+                            <h:inputText id="apellido" value="#{CiudadanoBean.ciudadano.apellido}" title="Apellido" />
+                            <h:outputLabel value="Sexo:" for="sexo" />
+                            <h:inputText id="sexo" value="#{CiudadanoBean.ciudadano.sexo}" title="Sexo" />
+                            <h:outputLabel value="F.Nacimiento:" for="fechaNacimiento" />
+                            <h:inputText id="fechaNacimiento" value="#{CiudadanoBean.ciudadano.fechaNacimiento}" title="Fecha Nacimiento" >
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:inputText>
+                        </h:panelGrid>
+                        <h1/><br/>
+                        <h:commandLink value="Guardar" action="#{CiudadanoBean.editarCiudadano}" />
+                        <br />
+                        <h:link outcome="CiudadanoLista" value="Lista" />
+                        <br/>
+                        <h:link outcome="/index" value="Inicio"/>
+                    </h:form>
+                </f:view>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

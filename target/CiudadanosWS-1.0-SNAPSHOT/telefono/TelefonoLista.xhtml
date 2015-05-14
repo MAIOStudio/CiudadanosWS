@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../templates/templateTelefono.xhtml">
+
+            <ui:define name="top">
+                Administrar Teléfonos
+            </ui:define>
+
+            <ui:define name="content">
+                <f:view>
+
+
+                    <h:form>
+                        <h1><h:outputText value="Listado"/></h1>
+                        <h:dataTable value="#{TelefonoBean.telefonos}" var="item">
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="ID"/>
+                                </f:facet>
+                                <h:outputText value="#{item.telefonoPK.idTelefono}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Telefono"/>
+                                </f:facet>
+                                <h:outputText value="#{item.telefono}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Tipo"/>
+                                </f:facet>
+                                <h:outputText value="#{item.tipo}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Ciudadano"/>
+                                </f:facet>
+                                <h:outputText value="#{item.ciudadano.nombre.concat(' ').concat(item.ciudadano.apellido)}"/>
+                            </h:column>
+                            <h:column>
+                                <h:commandLink value="Editar" action="#{TelefonoBean.prepararEditar(item)}" />
+                                <h:outputText value=" "/>
+                                <h:commandLink value="Eliminar" action="#{TelefonoBean.eliminarTelefono(item)}" onclick="return confirm('Está seguro?')" />
+                            </h:column>
+                        </h:dataTable>
+                        <h1/><br/>
+                        <h:commandLink value="Nuevo" action="#{TelefonoBean.prepararNuevo}" />
+                        <br/>
+                        <h:link outcome="/index" value="Inicio"/>
+                    </h:form>
+                </f:view>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -31,8 +31,6 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author dearmartinez
  */
 @Entity
-@Table(name = "ciudadano")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Ciudadano.findAll", query = "SELECT c FROM Ciudadano c"),
     @NamedQuery(name = "Ciudadano.findByIdCiudadano", query = "SELECT c FROM Ciudadano c WHERE c.idCiudadano = :idCiudadano"),
@@ -45,20 +43,13 @@ public class Ciudadano implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idCiudadano")
     private Integer idCiudadano;
-    @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "nombre")
     private String nombre;
     @Size(max = 45)
-    @Column(name = "apellido")
     private String apellido;
     @Size(max = 10)
-    @Column(name = "sexo")
     private String sexo;
-    @Column(name = "fechaNacimiento")
     @Temporal(TemporalType.DATE)
     private Date fechaNacimiento;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ciudadano")

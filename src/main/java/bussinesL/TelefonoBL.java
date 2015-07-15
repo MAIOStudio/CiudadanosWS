@@ -5,9 +5,7 @@
  */
 package bussinesL;
 
-import entities.Email;
 import entities.Telefono;
-import entities.TelefonoPK;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
@@ -40,7 +38,7 @@ public class TelefonoBL {
         telefonoDAO.edit(telefono);
     }
     
-    public Telefono getTelefono(TelefonoPK id) {
+    public Telefono getTelefono(Telefono id) {
         return telefonoDAO.find(id);
     }
 }

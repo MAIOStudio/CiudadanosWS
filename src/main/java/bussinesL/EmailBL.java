@@ -6,7 +6,6 @@
 package bussinesL;
 
 import entities.Email;
-import entities.EmailPK;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
@@ -27,7 +26,7 @@ public class EmailBL {
         return emailDAO.findAll();
     }
     
-    public Email getEmail(EmailPK id) {
+    public Email getEmail(Email id) {
         return emailDAO.find(id);
     }
     

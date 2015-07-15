@@ -6,7 +6,6 @@
 package bussinesL;
 
 import entities.Direccion;
-import entities.DireccionPK;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
@@ -27,7 +26,7 @@ public class DireccionBL {
         return direccionDAO.findAll();
     }
     
-    public Direccion getDireccion(DireccionPK id) {
+    public Direccion getDireccion(Direccion id) {
         return direccionDAO.find(id);
     }
     

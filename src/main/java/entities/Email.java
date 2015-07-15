@@ -6,81 +6,75 @@
 package entities;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author dearmartinez
  */
 @Entity
-@Table(name = "email")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Email.findAll", query = "SELECT e FROM Email e"),
-    @NamedQuery(name = "Email.findByIdEmail", query = "SELECT e FROM Email e WHERE e.emailPK.idEmail = :idEmail"),
+    @NamedQuery(name = "Email.findByIdEmail", query = "SELECT e FROM Email e WHERE e.email.idEmail = :idEmail"),
     @NamedQuery(name = "Email.findByEmail", query = "SELECT e FROM Email e WHERE e.email = :email"),
     @NamedQuery(name = "Email.findByTipo", query = "SELECT e FROM Email e WHERE e.tipo = :tipo"),
-    @NamedQuery(name = "Email.findByIdCiudadano", query = "SELECT e FROM Email e WHERE e.emailPK.idCiudadano = :idCiudadano")})
+    @NamedQuery(name = "Email.findByIdCiudadano", query = "SELECT e FROM Email e WHERE e.email.idCiudadano = :idCiudadano")})
 public class Email implements Serializable {
-    private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected EmailPK emailPK;
+    private static final long serialVersionUID = 30L;
+    @Id
+    protected Email email;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
-    @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 25)
-    @Column(name = "email")
-    private String email;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 10)
-    @Column(name = "tipo")
     private String tipo;
     @JoinColumn(name = "idCiudadano", referencedColumnName = "idCiudadano", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Ciudadano ciudadano;
+    private int idEmail;
+    private int idCiudadano;
 
     public Email() {
     }
 
-    public Email(EmailPK emailPK) {
-        this.emailPK = emailPK;
+    public Email(Email email) {
+        this.email = email;
     }
 
-    public Email(EmailPK emailPK, String email, String tipo) {
-        this.emailPK = emailPK;
+    public Email(Email email, String tipo) {
         this.email = email;
         this.tipo = tipo;
     }
 
     public Email(int idEmail, int idCiudadano) {
-        this.emailPK = new EmailPK(idEmail, idCiudadano);
+        this.email = new Email(idEmail, idCiudadano);
+    }
+    
+    public int getIdEmail() {
+        return idEmail;
     }
 
-    public EmailPK getEmailPK() {
-        return emailPK;
+    public void setIdEmail(int idEmail) {
+        this.idEmail = idEmail;
     }
 
-    public void setEmailPK(EmailPK emailPK) {
-        this.emailPK = emailPK;
+    public int getIdCiudadano() {
+        return idCiudadano;
     }
 
-    public String getEmail() {
+    public void setIdCiudadano(int idCiudadano) {
+        this.idCiudadano = idCiudadano;
+    }
+
+    public Email getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(Email email) {
         this.email = email;
     }
 
@@ -103,7 +97,7 @@ public class Email implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (emailPK != null ? emailPK.hashCode() : 0);
+        hash += (email != null ? email.hashCode() : 0);
         return hash;
     }
 
@@ -114,7 +108,7 @@ public class Email implements Serializable {
             return false;
         }
         Email other = (Email) object;
-        if ((this.emailPK == null && other.emailPK != null) || (this.emailPK != null && !this.emailPK.equals(other.emailPK))) {
+        if ((this.email == null && other.email != null) || (this.email != null && !this.email.equals(other.email))) {
             return false;
         }
         return true;
@@ -122,7 +116,7 @@ public class Email implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Email[ emailPK=" + emailPK + " ]";
+        return "entities.Email[ email=" + email + " ]";
     }
     
 }

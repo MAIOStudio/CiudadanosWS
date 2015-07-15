@@ -6,81 +6,75 @@
 package entities;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author dearmartinez
  */
 @Entity
-@Table(name = "telefono")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Telefono.findAll", query = "SELECT t FROM Telefono t"),
-    @NamedQuery(name = "Telefono.findByIdTelefono", query = "SELECT t FROM Telefono t WHERE t.telefonoPK.idTelefono = :idTelefono"),
+    @NamedQuery(name = "Telefono.findByIdTelefono", query = "SELECT t FROM Telefono t WHERE t.telefono.idTelefono = :idTelefono"),
     @NamedQuery(name = "Telefono.findByTelefono", query = "SELECT t FROM Telefono t WHERE t.telefono = :telefono"),
     @NamedQuery(name = "Telefono.findByTipo", query = "SELECT t FROM Telefono t WHERE t.tipo = :tipo"),
-    @NamedQuery(name = "Telefono.findByIdCiudadano", query = "SELECT t FROM Telefono t WHERE t.telefonoPK.idCiudadano = :idCiudadano")})
+    @NamedQuery(name = "Telefono.findByIdCiudadano", query = "SELECT t FROM Telefono t WHERE t.telefono.idCiudadano = :idCiudadano")})
 public class Telefono implements Serializable {
-    private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected TelefonoPK telefonoPK;
-    @Basic(optional = false)
+    private static final long serialVersionUID = 40L;
+    @Id
+    protected Telefono telefono;
     @NotNull
-    @Size(min = 1, max = 20)
-    @Column(name = "telefono")
-    private String telefono;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 10)
-    @Column(name = "tipo")
     private String tipo;
     @JoinColumn(name = "idCiudadano", referencedColumnName = "idCiudadano", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Ciudadano ciudadano;
+    private int idTelefono;
+    private int idCiudadano;
 
     public Telefono() {
     }
 
-    public Telefono(TelefonoPK telefonoPK) {
-        this.telefonoPK = telefonoPK;
+    public Telefono(Telefono telefono) {
+        this.telefono = telefono;
     }
 
-    public Telefono(TelefonoPK telefonoPK, String telefono, String tipo) {
-        this.telefonoPK = telefonoPK;
+    public Telefono(Telefono telefono, String tipo) {
         this.telefono = telefono;
         this.tipo = tipo;
     }
 
     public Telefono(int idTelefono, int idCiudadano) {
-        this.telefonoPK = new TelefonoPK(idTelefono, idCiudadano);
+        this.telefono = new Telefono(idTelefono, idCiudadano);
     }
 
-    public TelefonoPK getTelefonoPK() {
-        return telefonoPK;
-    }
-
-    public void setTelefonoPK(TelefonoPK telefonoPK) {
-        this.telefonoPK = telefonoPK;
-    }
-
-    public String getTelefono() {
+    public Telefono getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(String telefono) {
+    public void setTelefono(Telefono telefono) {
         this.telefono = telefono;
+    }
+    
+    public int getIdTelefono() {
+        return idTelefono;
+    }
+
+    public void setIdTelefono(int idTelefono) {
+        this.idTelefono = idTelefono;
+    }
+
+    public int getIdCiudadano() {
+        return idCiudadano;
+    }
+
+    public void setIdCiudadano(int idCiudadano) {
+        this.idCiudadano = idCiudadano;
     }
 
     public String getTipo() {
@@ -102,7 +96,7 @@ public class Telefono implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (telefonoPK != null ? telefonoPK.hashCode() : 0);
+        hash += (telefono != null ? telefono.hashCode() : 0);
         return hash;
     }
 
@@ -113,7 +107,7 @@ public class Telefono implements Serializable {
             return false;
         }
         Telefono other = (Telefono) object;
-        if ((this.telefonoPK == null && other.telefonoPK != null) || (this.telefonoPK != null && !this.telefonoPK.equals(other.telefonoPK))) {
+        if ((this.telefono == null && other.telefono != null) || (this.telefono != null && !this.telefono.equals(other.telefono))) {
             return false;
         }
         return true;
@@ -121,7 +115,7 @@ public class Telefono implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Telefono[ telefonoPK=" + telefonoPK + " ]";
+        return "entities.Telefono[ telefono=" + telefono + " ]";
     }
     
 }

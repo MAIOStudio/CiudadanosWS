@@ -7,7 +7,6 @@ package controller;
 
 import bussinesL.EmailBL;
 import entities.Email;
-import entities.EmailPK;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -73,7 +72,7 @@ public class EmailBean implements Serializable {
         this.email = email;
     }
     
-    public Email getEmail(EmailPK id) {
+    public Email getEmail(Email id) {
         email = emailBL.getEmail(id);
         return email;
     }
@@ -94,16 +93,16 @@ public class EmailBean implements Serializable {
             return emailBean.getEmail(getKey(value));
         }
 
-        entities.EmailPK getKey(String value) {
-            entities.EmailPK key;
+        entities.Email getKey(String value) {
+            entities.Email key;
             String values[] = value.split(SEPARATOR_ESCAPED);
-            key = new entities.EmailPK();
+            key = new entities.Email();
             key.setIdEmail(Integer.parseInt(values[0]));
             key.setIdCiudadano(Integer.parseInt(values[1]));
             return key;
         }
 
-        String getStringKey(entities.EmailPK value) {
+        String getStringKey(entities.Email value) {
             StringBuilder sb = new StringBuilder();
             sb.append(value.getIdEmail());
             sb.append(SEPARATOR);
@@ -118,7 +117,7 @@ public class EmailBean implements Serializable {
             }
             if (object instanceof Email) {
                 Email o = (Email) object;
-                return getStringKey(o.getEmailPK());
+                return getStringKey(o.getEmail());
             } else {
                 throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Email.class.getName());
             }

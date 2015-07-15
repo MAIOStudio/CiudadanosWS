@@ -6,82 +6,87 @@
 package entities;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author dearmartinez
  */
 @Entity
-@Table(name = "direccion")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Direccion.findAll", query = "SELECT d FROM Direccion d"),
-    @NamedQuery(name = "Direccion.findByIdDireccion", query = "SELECT d FROM Direccion d WHERE d.direccionPK.idDireccion = :idDireccion"),
+    @NamedQuery(name = "Direccion.findByIdDireccion", query = "SELECT d FROM Direccion d WHERE d.direccion.idDireccion = :idDireccion"),
     @NamedQuery(name = "Direccion.findByCalle", query = "SELECT d FROM Direccion d WHERE d.calle = :calle"),
     @NamedQuery(name = "Direccion.findByNumero", query = "SELECT d FROM Direccion d WHERE d.numero = :numero"),
     @NamedQuery(name = "Direccion.findBySector", query = "SELECT d FROM Direccion d WHERE d.sector = :sector"),
     @NamedQuery(name = "Direccion.findByCiudad", query = "SELECT d FROM Direccion d WHERE d.ciudad = :ciudad"),
     @NamedQuery(name = "Direccion.findByTipo", query = "SELECT d FROM Direccion d WHERE d.tipo = :tipo"),
-    @NamedQuery(name = "Direccion.findByIdCiudadano", query = "SELECT d FROM Direccion d WHERE d.direccionPK.idCiudadano = :idCiudadano")})
+    @NamedQuery(name = "Direccion.findByIdCiudadano", query = "SELECT d FROM Direccion d WHERE d.direccion.idCiudadano = :idCiudadano")})
 public class Direccion implements Serializable {
-    private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected DireccionPK direccionPK;
-    @Size(max = 20)
-    @Column(name = "calle")
+    private static final long serialVersionUID = 20L;
+    @Id
+    protected Direccion direccion;
+    @Size(max = 20)    
     private String calle;
-    @Size(max = 10)
-    @Column(name = "numero")
+    @Size(max = 10)    
     private String numero;
-    @Size(max = 20)
-    @Column(name = "sector")
+    @Size(max = 20)    
     private String sector;
     @Size(max = 20)
-    @Column(name = "ciudad")
     private String ciudad;
-    @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 10)
-    @Column(name = "tipo")
     private String tipo;
     @JoinColumn(name = "idCiudadano", referencedColumnName = "idCiudadano", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Ciudadano ciudadano;
+    private int idDireccion;
+    private int idCiudadano;
 
     public Direccion() {
     }
 
-    public Direccion(DireccionPK direccionPK) {
-        this.direccionPK = direccionPK;
+    public Direccion(Direccion direccion) {
+        this.direccion = direccion;
     }
 
-    public Direccion(DireccionPK direccionPK, String tipo) {
-        this.direccionPK = direccionPK;
+    public Direccion(Direccion direccion, String tipo) {
+        this.direccion = direccion;
         this.tipo = tipo;
     }
 
     public Direccion(int idDireccion, int idCiudadano) {
-        this.direccionPK = new DireccionPK(idDireccion, idCiudadano);
+        this.direccion = new Direccion(idDireccion, idCiudadano);
     }
 
-    public DireccionPK getDireccionPK() {
-        return direccionPK;
+    public Direccion getDireccion() {
+        return direccion;
     }
 
-    public void setDireccionPK(DireccionPK direccionPK) {
-        this.direccionPK = direccionPK;
+    public void setDireccion(Direccion direccion) {
+        this.direccion = direccion;
+    }
+    
+    public void setIdDireccion(int idDireccion) {
+        this.idDireccion = idDireccion;
+    }
+    
+    public void setIdCiudadano(int idCiudadano) {
+        this.idCiudadano = idCiudadano;
+    }
+    
+    public int getIdDireccion() {
+        return idDireccion;
+    }
+    
+    public int getIdCiudadano() {
+        return idCiudadano;
     }
 
     public String getCalle() {
@@ -135,7 +140,7 @@ public class Direccion implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (direccionPK != null ? direccionPK.hashCode() : 0);
+        hash += (direccion != null ? direccion.hashCode() : 0);
         return hash;
     }
 
@@ -146,7 +151,7 @@ public class Direccion implements Serializable {
             return false;
         }
         Direccion other = (Direccion) object;
-        if ((this.direccionPK == null && other.direccionPK != null) || (this.direccionPK != null && !this.direccionPK.equals(other.direccionPK))) {
+        if ((this.direccion == null && other.direccion != null) || (this.direccion != null && !this.direccion.equals(other.direccion))) {
             return false;
         }
         return true;
@@ -154,7 +159,7 @@ public class Direccion implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Direccion[ direccionPK=" + direccionPK + " ]";
+        return "entities.Direccion[ direccion=" + direccion + " ]";
     }
     
 }

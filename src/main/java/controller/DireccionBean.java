@@ -7,7 +7,6 @@ package controller;
 
 import bussinesL.DireccionBL;
 import entities.Direccion;
-import entities.DireccionPK;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -73,7 +72,7 @@ public class DireccionBean implements Serializable {
         this.direccion = direccion;
     }
     
-    public Direccion getDireccion(DireccionPK id) {
+    public Direccion getDireccion(Direccion id) {
         direccion = direccionBL.getDireccion(id);
         return direccion;
     }
@@ -94,16 +93,16 @@ public class DireccionBean implements Serializable {
             return direccionBean.getDireccion(getKey(value));
         }
 
-        entities.DireccionPK getKey(String value) {
-            entities.DireccionPK key;
+        entities.Direccion getKey(String value) {
+            entities.Direccion key;
             String values[] = value.split(SEPARATOR_ESCAPED);
-            key = new entities.DireccionPK();
+            key = new entities.Direccion();
             key.setIdDireccion(Integer.parseInt(values[0]));
             key.setIdCiudadano(Integer.parseInt(values[1]));
             return key;
         }
 
-        String getStringKey(entities.DireccionPK value) {
+        String getStringKey(entities.Direccion value) {
             StringBuilder sb = new StringBuilder();
             sb.append(value.getIdDireccion());
             sb.append(SEPARATOR);
@@ -118,7 +117,7 @@ public class DireccionBean implements Serializable {
             }
             if (object instanceof Direccion) {
                 Direccion o = (Direccion) object;
-                return getStringKey(o.getDireccionPK());
+                return getStringKey(o.getDireccion());
             } else {
                 throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Direccion.class.getName());
             }

@@ -7,7 +7,6 @@ package controller;
 
 import bussinesL.TelefonoBL;
 import entities.Telefono;
-import entities.TelefonoPK;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -73,7 +72,7 @@ public class TelefonoBean implements Serializable {
         this.telefono = telefono;
     }
     
-    public Telefono getTelefono(TelefonoPK id) {
+    public Telefono getTelefono(Telefono id) {
         telefono = telefonoBL.getTelefono(id);
         return telefono;
     }
@@ -94,16 +93,16 @@ public class TelefonoBean implements Serializable {
             return telefonoBean.getTelefono(getKey(value));
         }
 
-        entities.TelefonoPK getKey(String value) {
-            entities.TelefonoPK key;
+        entities.Telefono getKey(String value) {
+            entities.Telefono key;
             String values[] = value.split(SEPARATOR_ESCAPED);
-            key = new entities.TelefonoPK();
+            key = new entities.Telefono();
             key.setIdTelefono(Integer.parseInt(values[0]));
             key.setIdCiudadano(Integer.parseInt(values[1]));
             return key;
         }
 
-        String getStringKey(entities.TelefonoPK value) {
+        String getStringKey(entities.Telefono value) {
             StringBuilder sb = new StringBuilder();
             sb.append(value.getIdTelefono());
             sb.append(SEPARATOR);
@@ -118,7 +117,7 @@ public class TelefonoBean implements Serializable {
             }
             if (object instanceof Telefono) {
                 Telefono o = (Telefono) object;
-                return getStringKey(o.getTelefonoPK());
+                return getStringKey(o.getTelefono());
             } else {
                 throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Telefono.class.getName());
             }
